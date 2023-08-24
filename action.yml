@@ -26,6 +26,11 @@ runs:
   steps:
   - name: Check out code
     uses: actions/checkout@v2
+  - name: Check out jit-customer-scripts repository
+    uses: actions/checkout@v2
+    with:
+      repository: jitsecurity/jit-customer-scripts
+      path: jit-customer-scripts
   - name: Set environment variables
     shell: bash
     run: |
