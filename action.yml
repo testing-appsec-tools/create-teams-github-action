@@ -3,36 +3,39 @@ description: This action creates teams in JIT Security.
 inputs:
   JIT_CLIENT_ID:
     description: The JIT Client ID.
+    required: true
     type: string
   JIT_CLIENT_SECRET:
     description: The JIT Client Secret.
+    required: true
     type: string
   ORGANIZATION_NAME:
     description: The name of the GitHub organization.
+    required: true
     type: string
   GITHUB_API_TOKEN:
     description: The GitHub Personal Access Token.
+    required: true
     type: string
   TEAM_WILDCARD_TO_EXCLUDE:
     description: A wildcard team name to exclude from the teams that are created.
+    required: true
     type: string
 runs:
-  using: "python3.9"
+  using: "composite"
   steps:
   - name: Check out code
-    id: checkout
-    github:
-      uses: actions/checkout@v2
+    uses: actions/checkout@v2
   - name: Set environment variables
-    id: set-env
+    shell: bash
     run: |
-      echo "JIT_CLIENT_ID=${JIT_CLIENT_ID}" >> $GITHUB_ENV
-      echo "JIT_CLIENT_SECRET=${JIT_CLIENT_SECRET}" >> $GITHUB_ENV
-      echo "ORGANIZATION_NAME=${ORGANIZATION_NAME}" >> $GITHUB_ENV
-      echo "GITHUB_API_TOKEN=${GITHUB_API_TOKEN}" >> $GITHUB_ENV
-      echo "TEAM_WILDCARD_TO_EXCLUDE=${TEAM_WILDCARD_TO_EXCLUDE}" >> $GITHUB_ENV
+      echo "JIT_CLIENT_ID=${{ inputs.JIT_CLIENT_ID }}" >> $GITHUB_ENV
+      echo "JIT_CLIENT_SECRET=${{ inputs.JIT_CLIENT_SECRET }}" >> $GITHUB_ENV
+      echo "ORGANIZATION_NAME=${{ inputs.ORGANIZATION_NAME }}" >> $GITHUB_ENV
+      echo "GITHUB_API_TOKEN=${{ inputs.GITHUB_API_TOKEN }}" >> $GITHUB_ENV
+      echo "TEAM_WILDCARD_TO_EXCLUDE=${{ inputs.TEAM_WILDCARD_TO_EXCLUDE }}" >> $GITHUB_ENV
   - name: Create teams
-    id: create-teams
+    shell: bash
     run: |
       cd jit-customer-scripts
       make install
