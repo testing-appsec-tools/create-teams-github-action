@@ -15,7 +15,7 @@ This action creates teams in JIT Security.
 None.
 
 ## Example
-
+```
 uses: jitsecurity/jit-create-teams-github-actions@v1
 with:
 JIT_CLIENT_ID: ${{ secrets.JIT_CLIENT_ID }}
@@ -37,3 +37,4 @@ steps:
     uses: actions/setup-python@v2
      with:
        python-version: 3.9
+```
