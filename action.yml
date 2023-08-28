@@ -1,4 +1,4 @@
-name: Create Teams
+name: Sync Teams
 description: This action creates teams in JIT Security.
 inputs:
   JIT_CLIENT_ID:
